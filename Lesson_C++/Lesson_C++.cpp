@@ -4,24 +4,24 @@
 
 int main()
 {
-    setlocale(LC_ALL, "RUS");
+    //setlocale(LC_ALL, "RUS");
     Calculate calc;
 
     std::string str;
-    std::cout << "Введите параметр А ";
+    std::cout << "Input parametr A ";
     std::cin >> str;
     
     if (!calc.CheckStringOnDigit(str))
     {
-        std::cout << "Параметр А не является числом." << std::endl;
+        std::cout << "Parametr A is not a number" << std::endl;
         return 0;
     }
 
-    double inputNumber = round(std::stod(str) * 1000000) / 1000000;
+    float inputNumber = std::stof(str);
 
     if (!calc.CheckDigitOnExpress(inputNumber))
     {
-        std::cout << "Введенное число превышает границы заданных параметров." << std::endl;
+        std::cout << "Input value out of interval." << std::endl;
         return 0;
     }
 

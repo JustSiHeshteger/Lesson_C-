@@ -3,21 +3,25 @@
 #include <math.h>
 #include <iostream>
 #include <iomanip>
+#include <string>
 
 class Calculate
 {
 public:
-    void Start(double inputNumber)
+    void Start(float inputNumber)
     {
         int index = 1;
+        FillTable("x", "y", "#", "a");
+
         for (float x = start; x <= stop; x += step)
         {
-            double sinus = sin(x);
-            double square = sqrt(sinus - 0.5);
-            double del = inputNumber - square;
-            double y = 2 / del;
+            double y = 2 / (inputNumber - sqrt(sin(x) - 0.5));
 
-            CreateTable(x, y, index);
+            if (CheckStringOnDigit(std::to_string(y)))
+                FillTable(x, y, index, inputNumber);
+            else
+                FillTable(x, "Not Existing", index, inputNumber);
+
             index++;
         }
         std::cout << border << std::endl;
@@ -48,7 +52,7 @@ public:
         return true;
     };
 
-    bool CheckDigitOnExpress(double digit)
+    bool CheckDigitOnExpress(float digit)
     {
         if (digit <= -1000000)
             return false;
@@ -59,14 +63,31 @@ public:
     };
 
 private:
-    const std::string border = "--------------------------------------";
+    const std::string border = "-----------------------------------------------------------";
     const float start = -2, stop = 7, step = 0.5;
 
-    void CreateTable(double x, double y, int index)
+    void FillTable(float x, double y, int index, float a) //y - число
     {
         std::cout << border << std::endl;
         std::cout << "|  " << std::setw(2) << index << std::setw(5) << "|  " << std::setw(4) << std::setprecision(1) << x << "  |  ";
+        std::cout << std::fixed << std::setw(16) << std::setprecision(6) << a << std::setw(3) << "  |  ";
         std::cout << std::fixed << std::setw(16) << std::setprecision(6) << y << std::setw(3) << "|" << std::endl;
+    }
+
+    void FillTable(float x, std::string y, int index, float a) //y - не удалось посчитать
+    {
+        std::cout << border << std::endl;
+        std::cout << "|  " << std::setw(2) << index << std::setw(5) << "|  " << std::setw(4) << std::setprecision(1) << x << "  |  ";
+        std::cout << std::fixed << std::setw(16) << std::setprecision(6) << a << std::setw(3) << "  |  ";
+        std::cout << std::setw(16) << y << std::setw(3) << "|" << std::endl;
+    }
+
+    void FillTable(std::string x, std::string y, std::string index, std::string a) 
+    {
+        std::cout << border << std::endl;
+        std::cout << "|  " << std::setw(2) << index << std::setw(5) << "|  " << std::setw(4) << x << "  |  ";
+        std::cout << std::setw(16) << a << std::setw(3) << "  |  ";
+        std::cout << std::setw(16) << y << std::setw(3) << "|" << std::endl;
     }
 };
 
