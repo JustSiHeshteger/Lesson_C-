@@ -26,14 +26,11 @@ public:
 
     bool CheckStringOnDigit(std::string str)
     {
-        bool isNegative = false, tough = false;
+        bool tough = false;
         int index = 0;
 
         if (str[0] == '-')
-        {
             index++;
-            isNegative = true;
-        }
 
         while (index != str.length())
         {
