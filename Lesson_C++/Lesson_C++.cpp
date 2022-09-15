@@ -17,7 +17,7 @@ int main()
         return 0;
     }
 
-    float inputNumber = std::stof(str);
+    double inputNumber = std::stod(calc._normalStr);
 
     if (!calc.CheckDigitOnExpress(inputNumber))
     {
